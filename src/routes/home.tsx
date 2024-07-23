@@ -1,5 +1,4 @@
 import { HomeIcon } from "../components/home/icons/HomeIcon";
-import { HomeIcon2 } from "../components/home/icons/HomeIcon2";
 import { ButtonLink } from "../components/ui/button-link";
 import { Card } from "../components/ui/card";
 import { Container } from "../components/ui/container";
