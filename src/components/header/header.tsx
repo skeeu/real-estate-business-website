@@ -40,9 +40,50 @@ export function Header({}: HeaderProps) {
                 <Container>
                     <div className="flex justify-between items-center">
                         <img src="/logo-mobile.svg" />
-                        <button onClick={openMenu}>
+
+                        {/* Mobile menu burger */}
+                        <button className="md:hidden" onClick={openMenu}>
                             <HiOutlineMenuAlt3 size={28} />
                         </button>
+
+                        {/* Laptop, desktop menu */}
+                        <nav className="hidden md:flex md:justify-center">
+                            <ul className="flex">
+                                {navLinks.slice(0, -1).map((nav) => (
+                                    <li key={nav.label} className="block">
+                                        <NavLink
+                                            to={nav.to}
+                                            className={({ isActive }) => {
+                                                const baseStyles =
+                                                    "capitalize text-sm px-5 py-4 block text-center rounded-app";
+                                                return clsx(
+                                                    baseStyles,
+                                                    isActive &&
+                                                        "bg-grey-08 border border-grey-15"
+                                                );
+                                            }}
+                                        >
+                                            {nav.label}
+                                        </NavLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+
+                        {/* Laptop, desktop contact us */}
+                        <NavLink
+                            to={navLinks[navLinks.length - 1].to}
+                            className={() => {
+                                const baseStyles =
+                                    "capitalize text-sm px-5 py-4 block text-center rounded-app";
+                                return clsx(
+                                    baseStyles,
+                                    "bg-grey-08 border border-grey-15"
+                                );
+                            }}
+                        >
+                            {navLinks[navLinks.length - 1].label}
+                        </NavLink>
                     </div>
                 </Container>
             </header>
