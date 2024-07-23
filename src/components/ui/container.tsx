@@ -4,7 +4,7 @@ interface ContainerProps {}
 
 export function Container({ children }: PropsWithChildren<ContainerProps>) {
     return (
-        <div className="max-w-[358px] sm:max-w-[596px] lg:max-w-[1280px] xl:max-w-[1596px] w-full mx-auto">
+        <div className="max-w-screen-laptop px-4 laptop:max-w-screen-desktop laptop:px-20 w-full mx-auto">
             {children}
         </div>
     );

@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'laptop': '1440px',
+        'desktop': '1920px',
+      },
       colors: {
         'purple-60': '#703BF7',
         'purple-65': '#8254F8',
@@ -35,7 +39,8 @@ export default {
       },
       boxShadow: {
         'app': '0 0 0 4px #191919',
-      }
+      },
+
     },
   },
   plugins: [],
