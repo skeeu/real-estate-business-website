@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: "Urbanist", sans-serif;
+}
+
+@layer base {
+    body {
+        @apply bg-grey-08;
+        @apply text-white;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input {
+    all: unset;
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
