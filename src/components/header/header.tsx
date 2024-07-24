@@ -42,12 +42,12 @@ export function Header({}: HeaderProps) {
                         <img src="/logo-mobile.svg" />
 
                         {/* Mobile menu burger */}
-                        <button className="md:hidden" onClick={openMenu}>
+                        <button className="md:no-display" onClick={openMenu}>
                             <HiOutlineMenuAlt3 size={28} />
                         </button>
 
                         {/* Laptop, desktop menu */}
-                        <nav className="hidden md:flex md:justify-center">
+                        <nav className="no-display md:flex md:justify-center">
                             <ul className="flex">
                                 {navLinks.slice(0, -1).map((nav) => (
                                     <li key={nav.label} className="block">
@@ -75,7 +75,7 @@ export function Header({}: HeaderProps) {
                             to={navLinks[navLinks.length - 1].to}
                             className={() => {
                                 const baseStyles =
-                                    "capitalize text-sm px-5 py-4 block text-center rounded-app";
+                                    "no-display md:block capitalize text-sm px-5 py-4 block text-center rounded-app";
                                 return clsx(
                                     baseStyles,
                                     "bg-grey-08 border border-grey-15"

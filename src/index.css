@@ -7,6 +7,12 @@ body {
     font-family: "Urbanist", sans-serif;
 }
 
+@layer utilities {
+    .no-display {
+        display: none;
+    }
+}
+
 @layer base {
     body {
         @apply bg-grey-08;
