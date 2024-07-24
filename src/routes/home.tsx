@@ -139,6 +139,14 @@ export function HomePage({}: HomePageProps) {
                         subhead="Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein."
                     >
                         <Gallery
+                            itemsShown={[
+                                {
+                                    width: 320,
+                                    amount: 1,
+                                },
+                                { width: 1024, amount: 2 },
+                                { width: 1440, amount: 3 },
+                            ]}
                             action={
                                 <ButtonLink variant="grey" to="">
                                     View all properties
@@ -168,6 +176,14 @@ export function HomePage({}: HomePageProps) {
                         subhead="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
                     >
                         <Gallery
+                            itemsShown={[
+                                {
+                                    width: 320,
+                                    amount: 1,
+                                },
+                                { width: 1024, amount: 2 },
+                                { width: 1440, amount: 3 },
+                            ]}
                             action={
                                 <ButtonLink variant="grey" to="">
                                     View all testimonials
@@ -194,6 +210,14 @@ export function HomePage({}: HomePageProps) {
                         subhead="Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way."
                     >
                         <Gallery
+                            itemsShown={[
+                                {
+                                    width: 320,
+                                    amount: 1,
+                                },
+                                { width: 1024, amount: 2 },
+                                { width: 1440, amount: 3 },
+                            ]}
                             action={
                                 <ButtonLink variant="grey" to="">
                                     View all FAQ`s

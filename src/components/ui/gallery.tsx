@@ -1,14 +1,37 @@
-import { HTMLAttributes, ReactNode, useState } from "react";
+import { HTMLAttributes, ReactNode, useMemo, useState } from "react";
 import clsx from "clsx";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
+import { getCircularSlice } from "../../utils";
+import { useWindowSize } from "../../hooks/useWindowSize";
+
+type ItemsShownConfig = {
+    width: number;
+    amount: number;
+};
 
 interface GalleryProps extends HTMLAttributes<HTMLDivElement> {
     items: ReactNode[];
+    itemsShown?: ItemsShownConfig[];
     action?: ReactNode;
 }
 
-export function Gallery({ items, action, className, ...rest }: GalleryProps) {
+export function Gallery({
+    items,
+    action,
+    itemsShown = [{ width: 1, amount: 1 }],
+    className,
+    ...rest
+}: GalleryProps) {
+    const { width } = useWindowSize();
+    const actualItemsShown = useMemo(() => {
+        const sortedByWidth = itemsShown.sort((a, b) => a.width - b.width);
+        const lastMatch = sortedByWidth
+            .reverse()
+            .find((item) => item.width <= width!);
+        return lastMatch ? lastMatch.amount : 1;
+    }, [width]);
+
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     // 1 - right
@@ -17,12 +40,14 @@ export function Gallery({ items, action, className, ...rest }: GalleryProps) {
 
     const onNext = () => {
         setDirection(1);
-        setActiveIndex(activeIndex === items.length - 1 ? 0 : activeIndex + 1);
+        setActiveIndex((activeIndex + actualItemsShown) % items.length);
     };
 
     const onPrev = () => {
         setDirection(-1);
-        setActiveIndex(activeIndex === 0 ? items.length - 1 : activeIndex - 1);
+        setActiveIndex(
+            (activeIndex - actualItemsShown + items.length) % items.length
+        );
     };
 
     const variants = {
@@ -38,14 +63,18 @@ export function Gallery({ items, action, className, ...rest }: GalleryProps) {
         }),
     };
 
+    const currentPage = Math.floor(activeIndex / actualItemsShown) + 1;
+    const totalPages = Math.ceil(items.length / actualItemsShown);
+
     return (
         <div className={clsx("flex flex-col gap-8", className)} {...rest}>
-            <AnimatePresence mode="wait">
-                {items.map(
-                    (item, i) =>
-                        i === activeIndex && (
+            <div className="flex gap-4">
+                <AnimatePresence mode="wait">
+                    {getCircularSlice(items, activeIndex, actualItemsShown).map(
+                        (item, i) => (
                             <motion.div
-                                key={i}
+                                key={`${activeIndex}-${i}`}
+                                className="flex-1"
                                 custom={direction}
                                 initial="enter"
                                 animate="center"
@@ -58,8 +87,9 @@ export function Gallery({ items, action, className, ...rest }: GalleryProps) {
                                 {item}
                             </motion.div>
                         )
-                )}
-            </AnimatePresence>
+                    )}
+                </AnimatePresence>
+            </div>
 
             <div className="flex pt-4 border-t border-grey-15">
                 {action && <div className="mr-auto">{action}</div>}
@@ -71,8 +101,8 @@ export function Gallery({ items, action, className, ...rest }: GalleryProps) {
                         <FiArrowLeft size={24} />
                     </button>
                     <p>
-                        {activeIndex + 1}{" "}
-                        <span className="text-grey-60">of {items.length}</span>
+                        {currentPage}{" "}
+                        <span className="text-grey-60">of {totalPages}</span>
                     </p>
                     <button
                         className="flex rounded-full items-center justify-center p-2.5 border border-grey-15 bg-grey-10"

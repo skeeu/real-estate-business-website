@@ -28,8 +28,8 @@ export function FAQCard({
             variant="outline"
             {...rest}
         >
-            <h4 className="font-semibold text-lg">{question}</h4>
-            <p className="font-medium text-sm text-grey-60">{answer}</p>
+            <h4 className="font-semibold text-lg h-10">{question}</h4>
+            <p className="font-medium text-sm text-grey-60 h-10">{answer}</p>
             <ButtonLink to={to || ""} variant="grey">
                 Read more
             </ButtonLink>
